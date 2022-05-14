@@ -1,3 +1,4 @@
+using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
@@ -5,13 +6,16 @@ using System.Linq;
 
 namespace LTTHver2._2.Models.EF
 {
-    public partial class LTTH : DbContext
+    public partial class LTTH : IdentityDbContext<User>
     {
         public LTTH()
             : base("name=LTTH")
         {
         }
-
+        public static LTTH Create()
+        {
+            return new LTTH();
+        }
         public virtual DbSet<BlogCategory> BlogCategories { get; set; }
         public virtual DbSet<BlogComment> BlogComments { get; set; }
         public virtual DbSet<Blog> Blogs { get; set; }
@@ -32,13 +36,13 @@ namespace LTTHver2._2.Models.EF
         public virtual DbSet<Promotion> Promotions { get; set; }
         public virtual DbSet<PromotionType> PromotionTypes { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
-        public virtual DbSet<RoleName> RoleNames { get; set; }
+        
         public virtual DbSet<SlideDetail> SlideDetails { get; set; }
         public virtual DbSet<Slide> Slides { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Tag> Tags { get; set; }
         public virtual DbSet<UserGroup> UserGroups { get; set; }
-        public virtual DbSet<User> Users { get; set; }
+        
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -233,14 +237,9 @@ namespace LTTHver2._2.Models.EF
                 .WithOptional(e => e.PromotionType)
                 .HasForeignKey(e => e.TypeID);
 
-            modelBuilder.Entity<Role>()
-                .Property(e => e.ID)
-                .IsUnicode(false);
+            
 
-            modelBuilder.Entity<RoleName>()
-                .HasMany(e => e.Users)
-                .WithRequired(e => e.RoleName)
-                .HasForeignKey(e => e.IDChucVu);
+            
 
             modelBuilder.Entity<Slide>()
                 .HasMany(e => e.SlideDetails)
@@ -268,6 +267,7 @@ namespace LTTHver2._2.Models.EF
                 .IsFixedLength();
 
             modelBuilder.Entity<User>()
+                .HasKey(e=>e.Id)
                 .Property(e => e.Image)
                 .IsUnicode(false);
 
@@ -280,6 +280,8 @@ namespace LTTHver2._2.Models.EF
                 .HasMany(e => e.Orders)
                 .WithOptional(e => e.User)
                 .HasForeignKey(e => e.IDUser);
+            modelBuilder.Entity<IdentityUserRole>().HasKey(i => new { i.UserId, i.RoleId });
+            modelBuilder.Entity<IdentityUserLogin>().HasKey(i => i.UserId);
         }
     }
 }

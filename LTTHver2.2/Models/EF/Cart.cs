@@ -20,7 +20,7 @@ namespace LTTHver2._2.Models.EF
 
         public DateTime? CreatedTime { get; set; }
 
-        public int? CreatedByUserID { get; set; }
+        public string CreatedByUserID { get; set; }
 
         public int? Status { get; set; }
 
