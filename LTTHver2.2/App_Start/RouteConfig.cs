@@ -18,6 +18,11 @@ namespace LTTHver2._2
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+            routes.MapRoute(
+                name: "Order",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Order", action = "GetAllByUser", id = UrlParameter.Optional }
+            );
         }
     }
 }

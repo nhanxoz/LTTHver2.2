@@ -35,7 +35,6 @@ namespace LTTHver2._2.Models.EF
         public virtual DbSet<RoleName> RoleNames { get; set; }
         public virtual DbSet<SlideDetail> SlideDetails { get; set; }
         public virtual DbSet<Slide> Slides { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Tag> Tags { get; set; }
         public virtual DbSet<UserGroup> UserGroups { get; set; }
         public virtual DbSet<User> Users { get; set; }
