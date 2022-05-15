@@ -26,6 +26,11 @@ namespace LTTHver2._2.Models.EF
         [StringLength(250)]
         public string Alias { get; set; }
 
+        internal object OrderByDescending(Func<object, object> p)
+        {
+            throw new NotImplementedException();
+        }
+
         [StringLength(250)]
         public string Image { get; set; }
 

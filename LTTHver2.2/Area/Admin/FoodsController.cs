@@ -25,11 +25,16 @@ namespace LTTHver2._2.Area.Admin
         }
         [Route("api/admin/food")]
         [HttpPost]
-        public IHttpActionResult PostFood(Food food) // đoạn này Dũng nhớ thêm đổi id của food (tự sinh id lấy max id)
+        public IHttpActionResult PostFood(Food food) 
         {
+            
             try
             {
-            context.Foods.Add(food);
+                var k = context.Foods.ToList();
+                int n = k.OrderByDescending(u => u.ID).FirstOrDefault().ID;
+                food.ID = n + 1;
+                context.Foods.Add(food);
+            
             context.SaveChanges();
             return Ok(new { data = "Thành công", message = HttpStatusCode.OK });
             }
@@ -58,14 +63,32 @@ namespace LTTHver2._2.Area.Admin
         }
         [Route("api/admin/food")]
         [HttpPut]
-        public IHttpActionResult EditFood(Food food)
+        public IHttpActionResult EditFood(Food food, FoodCategory category)
         {
             try
             {
-                var ed = context.Foods.Find(food.ID);
-                ed.Name = food.Name;//sửa từng cái thế này thôi chứ del sửa được luôn :)
-                
-                ed = food; // dòng này xóa đi nhớ
+                Food ed = context.Foods.Find(food.ID);
+                category.ID = (int)ed.CategoryID;
+                ed.Name = food.Name;
+                ed.Alias = food.Alias;
+                ed.Image = food.Image;
+                ed.OriginPrice = food.OriginPrice;
+                ed.PromotionPrice = food.PromotionPrice;
+                ed.CategoryID = food.CategoryID;
+                ed.Description = food.Description;
+                ed.Content = food.Content;
+                ed.CreatedDate = food.CreatedDate;
+                ed.CreatedBy = food.CreatedBy;
+                ed.UpdatedDate = food.UpdatedDate;
+                ed.UpdatedBy = food.UpdatedBy;
+                ed.HotFlag = food.HotFlag;
+                ed.ViewCount = food.ViewCount;
+                ed.Status = food.Status;
+                ed.SlideID = food.SlideID;
+                ed.Slide = food.Slide;
+                ed.PromotionFoodDetails = food.PromotionFoodDetails;
+                ed.Tags = food.Tags;
+
                 context.SaveChanges();
                 return Ok(new { data = "Thành công", message = HttpStatusCode.OK });
             }
