@@ -202,10 +202,20 @@
     <Compile Include="Area\Admin\CommentController.cs" />
     <Compile Include="Area\Admin\FoodCategoriesController.cs" />
     <Compile Include="Area\Admin\FoodsController.cs" />
+
+    <Compile Include="Area\Main\BlogController.cs" />
+    <Compile Include="Area\Main\CartController.cs" />
+    <Compile Include="Area\Main\CommentController.cs" />
+    <Compile Include="Area\Main\FoodController.cs" />
+    <Compile Include="Area\Main\OrderController.cs" />
+    <Compile Include="Area\Main\PromotionController.cs" />
+    <Compile Include="Area\Main\UserController.cs" />
+
     <Compile Include="Area\Admin\OrderController.cs" />
     <Compile Include="Area\Admin\PromotionController.cs" />
     <Compile Include="Area\Admin\TagController.cs" />
     <Compile Include="Area\Admin\UsersController.cs" />
+
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -246,6 +256,7 @@
     <Compile Include="Models\EF\Image.cs" />
     <Compile Include="Models\EF\LTTH.cs" />
     <Compile Include="Models\EF\Order.cs" />
+    <Compile Include="Models\EF\OrderDetail.cs" />
     <Compile Include="Models\EF\OrderFoodDetail.cs" />
     <Compile Include="Models\EF\Promotion.cs" />
     <Compile Include="Models\EF\PromotionFoodDetail.cs" />
@@ -254,7 +265,6 @@
     <Compile Include="Models\EF\RoleName.cs" />
     <Compile Include="Models\EF\Slide.cs" />
     <Compile Include="Models\EF\SlideDetail.cs" />
-    <Compile Include="Models\EF\sysdiagram.cs" />
     <Compile Include="Models\EF\Tag.cs" />
     <Compile Include="Models\EF\User.cs" />
     <Compile Include="Models\EF\UserGroup.cs" />

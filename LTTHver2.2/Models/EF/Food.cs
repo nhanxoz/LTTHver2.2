@@ -36,7 +36,7 @@ namespace LTTHver2._2.Models.EF
 
         public int? OriginPrice { get; set; }
 
-        public int? PromotionPrice { get; set; }
+        public int PromotionPrice { get; set; }
 
         public int? CategoryID { get; set; }
 
