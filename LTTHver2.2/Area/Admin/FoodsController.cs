@@ -15,6 +15,7 @@ namespace LTTHver2._2.Area.Admin
         {
             context.Configuration.ProxyCreationEnabled = false;
         }
+        [Authorize]
         [Route("api/admin/food")]
         [HttpGet]
         public IHttpActionResult httpActionResult()
@@ -45,6 +46,7 @@ namespace LTTHver2._2.Area.Admin
         }
         [Route("api/admin/food")]
         [HttpDelete]
+        [Authorize(Roles="ADMIN")]
         public IHttpActionResult DeleteFood(int id)
         {
             try
@@ -86,6 +88,7 @@ namespace LTTHver2._2.Area.Admin
                 ed.Slide = food.Slide;
                 ed.PromotionFoodDetails = food.PromotionFoodDetails;
                 ed.Tags = food.Tags;
+
                 context.SaveChanges();
                 return Ok(new { data = "Thành công", message = HttpStatusCode.OK });
             }

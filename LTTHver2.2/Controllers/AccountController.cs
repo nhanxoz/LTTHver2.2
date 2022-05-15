@@ -9,6 +9,11 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using LTTHver2._2.Models;
+using LTTHver2._2.Models.EF;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using System.Web.Configuration;
 
 namespace LTTHver2._2.Controllers
 {
@@ -17,12 +22,13 @@ namespace LTTHver2._2.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        
 
         public AccountController()
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -34,9 +40,9 @@ namespace LTTHver2._2.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -60,12 +66,17 @@ namespace LTTHver2._2.Controllers
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
-
+        [HttpGet]
+        [AllowAnonymous]
+        public ActionResult NoAuthorize()
+        {
+            return Json(new { data = "Bạn không đủ quyền để truy cập trang web này" }, JsonRequestBehavior.AllowGet);
+        }
         //
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
+        
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
             if (!ModelState.IsValid)
@@ -79,7 +90,28 @@ namespace LTTHver2._2.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    {
+                        var user = await UserManager.FindByEmailAsync(model.Email);
+                        var roles = await UserManager.GetRolesAsync(user.Id);
+                        var claims = new[]
+                        {
+                new Claim(ClaimTypes.Email,user.Email),
+                new Claim(ClaimTypes.GivenName,user.UserName),
+                new Claim(ClaimTypes.Role, string.Join(";",roles))
+            };
+                        var key_ = WebConfigurationManager.AppSettings["PFUserName"];
+                        var key_1 = WebConfigurationManager.AppSettings["PFPassWord"];
+                        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key_));
+                        var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+                        var token = new JwtSecurityToken(key_1,
+                            key_1,
+                            claims,
+                            expires: DateTime.Now.AddHours(3),
+                            signingCredentials: creds);
+
+                        return Json(new { data = new JwtSecurityTokenHandler().WriteToken(token), message = 200 });
+                    }
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -120,7 +152,7 @@ namespace LTTHver2._2.Controllers
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -151,12 +183,12 @@ namespace LTTHver2._2.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new User { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
@@ -367,7 +399,7 @@ namespace LTTHver2._2.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new User { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
