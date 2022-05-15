@@ -8,6 +8,7 @@ using System.Web.Http;
 
 namespace LTTHver2._2.Area.Main
 {
+    [Authorize]
     public class OrderController : ApiController
     {
         public LTTH context = new LTTH();

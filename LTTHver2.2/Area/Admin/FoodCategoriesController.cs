@@ -8,6 +8,7 @@ using System.Web.Http;
 
 namespace LTTHver2._2.Area.Admin
 {
+    [Authorize(Roles = "ADMIN,STAFF")]
     public class FoodCategoriesController : ApiController
     {
         public LTTH context = new LTTH();
