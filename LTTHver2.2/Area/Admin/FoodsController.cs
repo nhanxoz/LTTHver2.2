@@ -15,6 +15,7 @@ namespace LTTHver2._2.Area.Admin
         {
             context.Configuration.ProxyCreationEnabled = false;
         }
+        [Authorize]
         [Route("api/admin/food")]
         [HttpGet]
         public IHttpActionResult httpActionResult()
@@ -40,6 +41,7 @@ namespace LTTHver2._2.Area.Admin
         }
         [Route("api/admin/food")]
         [HttpDelete]
+        [Authorize(Roles="ADMIN")]
         public IHttpActionResult DeleteFood(int id)
         {
             try
@@ -62,6 +64,7 @@ namespace LTTHver2._2.Area.Admin
             {
                 var ed = context.Foods.Find(food.ID);
                 ed.Name = food.Name;//sửa từng cái thế này thôi chứ del sửa được luôn :)
+                
                 ed = food; // dòng này xóa đi nhớ
                 context.SaveChanges();
                 return Ok(new { data = "Thành công", message = HttpStatusCode.OK });

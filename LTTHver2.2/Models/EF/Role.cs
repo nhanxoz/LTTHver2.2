@@ -7,12 +7,8 @@ namespace LTTHver2._2.Models.EF
     using System.Data.Entity.Spatial;
 
     [Table("Role")]
-    public partial class Role
+    public partial class Role : Microsoft.AspNet.Identity.EntityFramework.IdentityRole
     {
-        [StringLength(50)]
-        public string ID { get; set; }
-
-        [StringLength(50)]
-        public string Name { get; set; }
+        
     }
 }

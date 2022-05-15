@@ -29,11 +29,11 @@ namespace LTTHver2._2.Models.EF
 
         public int? CreatedTime { get; set; }
 
-        public int? CreatedByUserID { get; set; }
+        public string CreatedByUserID { get; set; }
 
         public int? Status { get; set; }
 
-        public int? IDUser { get; set; }
+        public string IDUser { get; set; }
 
         public int? ToTalPrice { get; set; }
 
