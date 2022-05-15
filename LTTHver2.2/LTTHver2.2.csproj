@@ -51,10 +51,25 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.IdentityModel.Logging, Version=1.1.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Logging.1.1.5\lib\net451\Microsoft.IdentityModel.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Tokens, Version=5.1.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Tokens.5.1.5\lib\net451\Microsoft.IdentityModel.Tokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Swashbuckle.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cd1bb07a5ac7c7bc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Swashbuckle.Core.5.6.0\lib\net40\Swashbuckle.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=5.1.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.5.1.5\lib\net451\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
@@ -109,6 +124,9 @@
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.0\lib\net40\WebActivatorEx.dll</HintPath>
     </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
@@ -171,9 +189,6 @@
     <Reference Include="Microsoft.Owin.Security.OAuth">
       <HintPath>..\packages\Microsoft.Owin.Security.OAuth.4.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
-      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -181,8 +196,13 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Area\Admin\BlogController.cs" />
+    <Compile Include="Area\Admin\CommentController.cs" />
+    <Compile Include="Area\Admin\FoodCategoriesController.cs" />
     <Compile Include="Area\Admin\FoodsController.cs" />
+
     <Compile Include="Area\Main\BlogController.cs" />
     <Compile Include="Area\Main\CartController.cs" />
     <Compile Include="Area\Main\CommentController.cs" />
@@ -190,12 +210,35 @@
     <Compile Include="Area\Main\OrderController.cs" />
     <Compile Include="Area\Main\PromotionController.cs" />
     <Compile Include="Area\Main\UserController.cs" />
+
+    <Compile Include="Area\Admin\OrderController.cs" />
+    <Compile Include="Area\Admin\PromotionController.cs" />
+    <Compile Include="Area\Admin\TagController.cs" />
+    <Compile Include="Area\Admin\UsersController.cs" />
+
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202205130948402_k.cs" />
+    <Compile Include="Migrations\202205130948402_k.Designer.cs">
+      <DependentUpon>202205130948402_k.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202205140127565_z.cs" />
+    <Compile Include="Migrations\202205140127565_z.Designer.cs">
+      <DependentUpon>202205140127565_z.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202205140142451_j.cs" />
+    <Compile Include="Migrations\202205140142451_j.Designer.cs">
+      <DependentUpon>202205140142451_j.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202205140146142_l.cs" />
+    <Compile Include="Migrations\202205140146142_l.Designer.cs">
+      <DependentUpon>202205140146142_l.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\EF\Blog.cs" />
     <Compile Include="Models\EF\BlogCategory.cs" />
@@ -241,6 +284,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="appsettings.json" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -289,6 +333,13 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Blog\" />
+    <Folder Include="Views\Comment\" />
+    <Folder Include="Views\FoodCategories\" />
+    <Folder Include="Views\Order\" />
+    <Folder Include="Views\Promotion\" />
+    <Folder Include="Views\Tag\" />
+    <Folder Include="Views\Users\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -302,6 +353,20 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202205130948402_k.resx">
+      <DependentUpon>202205130948402_k.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202205140127565_z.resx">
+      <DependentUpon>202205140127565_z.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202205140142451_j.resx">
+      <DependentUpon>202205140142451_j.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202205140146142_l.resx">
+      <DependentUpon>202205140146142_l.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
