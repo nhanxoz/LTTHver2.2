@@ -17,7 +17,7 @@ namespace LTTHver2._2.Area.Main
         }
         [Route("api/user/cartUserID")]
         [HttpGet]
-        public IHttpActionResult GetAllCart(int id)
+        public IHttpActionResult GetAllCart(string id)
         {
             var cartfood = from a in context.Carts
                            from b in context.CartFoodDetails

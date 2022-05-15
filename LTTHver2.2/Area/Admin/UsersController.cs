@@ -30,8 +30,8 @@ namespace LTTHver2._2.Area.Admin
             try
             {
                 var k = context.Users.ToList();
-                int n = k.OrderByDescending(u => u.ID).FirstOrDefault().ID;
-                user.ID = n + 1;
+                string n = Guid.NewGuid().ToString();
+                user.Id = n;
                 context.Users.Add(user);
 
                 context.SaveChanges();
@@ -65,7 +65,7 @@ namespace LTTHver2._2.Area.Admin
         {
             try
             {
-                User ed = context.Users.Find(user.ID);
+                User ed = context.Users.Find(user.Id);
                 ed.UserName = user.UserName;
                 ed.Password = user.Password;
                 ed.FullName = user.FullName;

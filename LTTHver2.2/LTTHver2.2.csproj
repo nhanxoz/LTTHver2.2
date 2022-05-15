@@ -202,7 +202,6 @@
     <Compile Include="Area\Admin\CommentController.cs" />
     <Compile Include="Area\Admin\FoodCategoriesController.cs" />
     <Compile Include="Area\Admin\FoodsController.cs" />
-
     <Compile Include="Area\Main\BlogController.cs" />
     <Compile Include="Area\Main\CartController.cs" />
     <Compile Include="Area\Main\CommentController.cs" />
@@ -210,12 +209,10 @@
     <Compile Include="Area\Main\OrderController.cs" />
     <Compile Include="Area\Main\PromotionController.cs" />
     <Compile Include="Area\Main\UserController.cs" />
-
     <Compile Include="Area\Admin\OrderController.cs" />
     <Compile Include="Area\Admin\PromotionController.cs" />
     <Compile Include="Area\Admin\TagController.cs" />
     <Compile Include="Area\Admin\UsersController.cs" />
-
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -237,6 +234,10 @@
     <Compile Include="Migrations\202205140146142_l.cs" />
     <Compile Include="Migrations\202205140146142_l.Designer.cs">
       <DependentUpon>202205140146142_l.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202205150253173_a.cs" />
+    <Compile Include="Migrations\202205150253173_a.Designer.cs">
+      <DependentUpon>202205150253173_a.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -366,6 +367,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202205140146142_l.resx">
       <DependentUpon>202205140146142_l.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202205150253173_a.resx">
+      <DependentUpon>202205150253173_a.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

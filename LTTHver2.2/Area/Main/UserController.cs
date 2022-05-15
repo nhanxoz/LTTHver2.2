@@ -17,13 +17,13 @@ namespace LTTHver2._2.Area.Main
         }
         [Route("api/user")]
         [HttpGet]
-        public IHttpActionResult GetUser(int id)
+        public IHttpActionResult GetUser(string id)
         {
             var user = from a in context.Users
-                       where a.ID == id
+                       where a.Id == id
                        select new
                        {
-                           a.ID,
+                           a.Id,
                            a.FullName,
                            a.Image,
                            a.PhoneNumber,
@@ -41,7 +41,7 @@ namespace LTTHver2._2.Area.Main
             try
             {
 
-                User _user = context.Users.Find(user.ID);
+                User _user = context.Users.Find(user.Id);
                 _user = user;
                 context.SaveChanges();
 

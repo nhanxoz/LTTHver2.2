@@ -17,7 +17,7 @@ namespace LTTHver2._2.Area.Main
         }
         [Route("api/user/orderUser")]
         [HttpGet]
-        public IHttpActionResult GetAllByUser(int id)
+        public IHttpActionResult GetAllByUser(string id)
         {
             var order = from a in context.OrderFoodDetails
                         from b in context.Orders
