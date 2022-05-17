@@ -4,12 +4,11 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using System.Web.Http.Cors;
+
 using LTTHver2._2.Models.EF;
 
 namespace LTTHver2._2.Area.Main
 {
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class FoodController : ApiController
     {
         public LTTH context = new LTTH();
@@ -17,7 +16,7 @@ namespace LTTHver2._2.Area.Main
         {
             context.Configuration.ProxyCreationEnabled = false;
         }
-        [EnableCors(origins: "*", headers: "*", methods: "*")]
+
         [Route("api/user/food")]
         [HttpGet]
         public IHttpActionResult httpActionResult()

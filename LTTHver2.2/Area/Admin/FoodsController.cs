@@ -24,6 +24,15 @@ namespace LTTHver2._2.Area.Admin
             var k = context.Foods.ToList();
             return Ok(new { data = k , message=HttpStatusCode.OK});
         }
+        [Authorize]
+        [Route("api/admin/categories")]
+        [HttpGet]
+        public IHttpActionResult categories()
+        {
+            var k = context.FoodCategories.ToList();
+            return Ok(new { data = k, message = HttpStatusCode.OK });
+        }
+
         [Route("api/admin/food")]
         [HttpPost]
         public IHttpActionResult PostFood(Food food) 

@@ -14,10 +14,10 @@ using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Web.Configuration;
+using System.Net;
 
 namespace LTTHver2._2.Controllers
 {
-    [Authorize]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
@@ -60,23 +60,25 @@ namespace LTTHver2._2.Controllers
 
         //
         // GET: /Account/Login
+        
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
+
         [HttpGet]
         [AllowAnonymous]
         public ActionResult NoAuthorize()
         {
-            return Json(new { data = "Bạn không đủ quyền để truy cập trang web này" }, JsonRequestBehavior.AllowGet);
+            Response.StatusCode = (int)HttpStatusCode.BadRequest;
+            return Json(new { data = "Bạn không đủ quyền để truy cập trang web này", success = false }, JsonRequestBehavior.AllowGet);
         }
         //
         // POST: /Account/Login
-        [HttpPost]
-        [AllowAnonymous]
         
+        [HttpPost]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
             if (!ModelState.IsValid)
@@ -110,7 +112,7 @@ namespace LTTHver2._2.Controllers
                             expires: DateTime.Now.AddHours(3),
                             signingCredentials: creds);
 
-                        return Json(new { data = new JwtSecurityTokenHandler().WriteToken(token), message = 200 });
+                        return Json(new { accessToken = new JwtSecurityTokenHandler().WriteToken(token), success = true , user = User.Identity.Name, isauthen = User.Identity.IsAuthenticated});
                     }
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -328,7 +330,13 @@ namespace LTTHver2._2.Controllers
             var factorOptions = userFactors.Select(purpose => new SelectListItem { Text = purpose, Value = purpose }).ToList();
             return View(new SendCodeViewModel { Providers = factorOptions, ReturnUrl = returnUrl, RememberMe = rememberMe });
         }
-
+        [HttpGet]
+        [Authorize]
+        public ActionResult Auth()
+        {
+            
+            return Json(new { data = new { username = User.Identity.Name }, success = true }, JsonRequestBehavior.AllowGet);
+        }
         //
         // POST: /Account/SendCode
         [HttpPost]
@@ -420,11 +428,10 @@ namespace LTTHver2._2.Controllers
         //
         // POST: /Account/LogOff
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            return Json(new { data = "Đã đăng xuất", success = true });
         }
 
         //
