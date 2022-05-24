@@ -9,19 +9,40 @@ using System.Web.Http;
 namespace LTTHver2._2.Area.Admin
 {
     [Authorize(Roles = "ADMIN,STAFF")]
-    public class OrderController : ApiController
+    public class aOrderController : ApiController
     {
         public LTTH context = new LTTH();
-        public OrderController()
+        public aOrderController()
         {
             context.Configuration.ProxyCreationEnabled = false;
         }
-        [Route("api/admin/order")]
+        [Route("api/Order")]
         [HttpGet]
         public IHttpActionResult httpActionResult()
         {
-            var k = context.Orders.ToList();
-            return Ok(new { data = k, message = HttpStatusCode.OK });
+            var order = from a in context.OrderFoodDetails
+                        from b in context.Orders
+                        from c in context.FoodOptions
+                        from d in context.Foods
+                        where b.ID == a.OrderID && a.FoodOptionID == c.ID &&
+                        c.ID == d.ID 
+                        select new
+                        {
+                            a.OrderID,
+                            b.CreatedByUserID,
+                            b.CustomerName,
+                            b.CustomerAddress,
+                            d.ID,
+                            d.Name,
+                            d.Image,
+                            d.OriginPrice,
+                            d.PromotionPrice,
+                            a.Quantity,
+                            b.PaymentMethod,
+                            d.Alias
+                        };
+
+            return Ok(new { data = order, message = HttpStatusCode.OK });
         }
         [Route("api/admin/order")]
         [HttpPost]

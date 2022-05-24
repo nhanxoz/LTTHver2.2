@@ -9,10 +9,10 @@ using System.Web.Http;
 namespace LTTHver2._2.Area.Admin
 {
     [Authorize(Roles = "ADMIN,STAFF")]
-    public class FoodsController : ApiController
+    public class aFoodsController : ApiController
     {
         public LTTH context = new LTTH();
-        public FoodsController()
+        public aFoodsController()
         {
             context.Configuration.ProxyCreationEnabled = false;
         }

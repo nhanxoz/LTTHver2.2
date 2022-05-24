@@ -8,32 +8,32 @@ using System.Web.Http;
 
 namespace LTTHver2._2.Area.Admin
 {
-    [Authorize(Roles ="ADMIN,STAFF")]
-    public class BlogController : ApiController
+    [Authorize(Roles = "ADMIN,STAFF")]
+    public class aCommentController : ApiController
     {
         public LTTH context = new LTTH();
-        public BlogController()
+        public aCommentController()
         {
             context.Configuration.ProxyCreationEnabled = false;
         }
-        [Route("api/admin/blog")]
+        [Route("api/admin/comment")]
         [HttpGet]
         public IHttpActionResult httpActionResult()
         {
-            var k = context.Blogs.ToList();
+            var k = context.FoodComments.ToList();
             return Ok(new { data = k, message = HttpStatusCode.OK });
         }
-        [Route("api/admin/blog")]
+        [Route("api/admin/comment")]
         [HttpPost]
-        public IHttpActionResult PostBlog(Blog blog)
+        public IHttpActionResult PostComment(FoodComment cm)
         {
 
             try
             {
-                var k = context.Blogs.ToList();
+                var k = context.FoodComments.ToList();
                 int n = k.OrderByDescending(u => u.ID).FirstOrDefault().ID;
-                blog.ID = n + 1;
-                context.Blogs.Add(blog);
+                cm.ID = n + 1;
+                context.FoodComments.Add(cm);
 
                 context.SaveChanges();
                 return Ok(new { data = "Thành công", message = HttpStatusCode.OK });
@@ -44,14 +44,14 @@ namespace LTTHver2._2.Area.Admin
             }
 
         }
-        [Route("api/admin/blog")]
+        [Route("api/admin/comment")]
         [HttpDelete]
-        public IHttpActionResult DeleteBlog(int id)
+        public IHttpActionResult DeleteCommnent(int id)
         {
             try
             {
-                var rm = context.Blogs.Find(id);
-                context.Blogs.Remove(rm);
+                var rm = context.FoodComments.Find(id);
+                context.FoodComments.Remove(rm);
                 context.SaveChanges();
                 return Ok(new { data = "Thành công", message = HttpStatusCode.OK });
             }
@@ -60,27 +60,23 @@ namespace LTTHver2._2.Area.Admin
                 return BadRequest(ex.Message);
             }
         }
-        [Route("api/admin/blog")]
+        [Route("api/admin/comment")]
         [HttpPut]
-        public IHttpActionResult EditBlog(Blog blog)
+        public IHttpActionResult EditComnment(FoodComment cm)
         {
             try
             {
-                Blog ed = context.Blogs.Find(blog.ID);
-                ed.Name = blog.Name;
-                ed.Alias = blog.Alias;
-                ed.Image = blog.Image;
-                ed.CategoryID = blog.CategoryID;
-                ed.Description = blog.Description;
-                ed.Content = blog.Content;
-                ed.CreatedDate = blog.CreatedDate;
-                ed.CreatedBy = blog.CreatedBy;
-                ed.UpdatedDate = blog.UpdatedDate;
-                ed.UpdatedBy = blog.UpdatedBy;
-                ed.HotFlag = blog.HotFlag;
-                ed.ViewCount = blog.ViewCount;
-                ed.Status = blog.Status;
-                
+                FoodComment ed = context.FoodComments.Find(cm.ID);
+                ed.FoodID = cm.FoodID;
+                ed.DisplayOrder = cm.DisplayOrder;
+                ed.ParentID = cm.ParentID;
+                ed.Content = cm.Content;
+                ed.CreatedDate = cm.CreatedDate;
+                ed.CreatedBy = cm.CreatedBy;
+                ed.UpdatedDate = cm.UpdatedDate;
+                ed.UpdatedBy = cm.UpdatedBy;
+                ed.Status = cm.Status;
+
 
 
                 context.SaveChanges();
