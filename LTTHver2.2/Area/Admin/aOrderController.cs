@@ -39,7 +39,8 @@ namespace LTTHver2._2.Area.Admin
                             d.PromotionPrice,
                             a.Quantity,
                             b.PaymentMethod,
-                            d.Alias
+                            d.Alias,
+                            b.Status
                         };
 
             return Ok(new { data = order, message = HttpStatusCode.OK });
@@ -71,8 +72,8 @@ namespace LTTHver2._2.Area.Admin
         {
             try
             {
-                var rm = context.Orders.Find(id);
-                context.Orders.Remove(rm);
+                var k = context.OrderFoodDetails.Where(x=>x.FoodOptionID==id).FirstOrDefault();
+                context.OrderFoodDetails.Remove(k);
                 context.SaveChanges();
                 return Ok(new { data = "Thành công", message = HttpStatusCode.OK });
             }
