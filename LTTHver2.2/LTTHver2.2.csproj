@@ -205,6 +205,7 @@
     <Compile Include="Area\Admin\aCommentController.cs" />
     <Compile Include="Area\Admin\aFoodCategoriesController.cs" />
     <Compile Include="Area\Admin\aFoodsController.cs" />
+    <Compile Include="Area\Admin\aUploadImageController.cs" />
     <Compile Include="Area\Main\BlogController.cs" />
     <Compile Include="Area\Main\CartController.cs" />
     <Compile Include="Area\Main\CommentController.cs" />
