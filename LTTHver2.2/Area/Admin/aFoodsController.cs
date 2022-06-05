@@ -71,14 +71,14 @@ namespace LTTHver2._2.Area.Admin
                 return BadRequest(ex.Message);
             }
         }
-        [Route("api/admin/food")]
+        [Route("api/admin/editfood")]
         [HttpPut]
-        public IHttpActionResult EditFood(Food food, FoodCategory category)
+        public IHttpActionResult EditFood(Food food)
         {
             try
             {
                 Food ed = context.Foods.Find(food.ID);
-                category.ID = (int)ed.CategoryID;
+                ed.CategoryID = food.CategoryID;
                 ed.Name = food.Name;
                 ed.Alias = food.Alias;
                 ed.Image = food.Image;

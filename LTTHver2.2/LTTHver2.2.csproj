@@ -203,6 +203,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Area\Admin\aBlogController.cs" />
     <Compile Include="Area\Admin\aCommentController.cs" />
+    <Compile Include="Area\Admin\aDashboardController.cs" />
     <Compile Include="Area\Admin\aFoodCategoriesController.cs" />
     <Compile Include="Area\Admin\aFoodsController.cs" />
     <Compile Include="Area\Admin\aUploadImageController.cs" />
