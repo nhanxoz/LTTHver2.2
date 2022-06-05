@@ -8,7 +8,9 @@ namespace LTTHver2._2.Models.EF
 
     public partial class FoodComment
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 
         public int? FoodID { get; set; }

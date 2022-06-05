@@ -145,7 +145,7 @@ namespace LTTHver2._2.Models.EF
 
             modelBuilder.Entity<FoodComment>()
                 .Property(e => e.CreatedBy)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
             modelBuilder.Entity<FoodComment>()
                 .Property(e => e.UpdatedBy)

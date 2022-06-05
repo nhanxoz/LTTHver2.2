@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 
 using LTTHver2._2.Models.EF;
+using Newtonsoft.Json;
 
 namespace LTTHver2._2.Area.Main
 {
@@ -19,12 +21,40 @@ namespace LTTHver2._2.Area.Main
 
         [Route("api/user/food")]
         [HttpGet]
-        public IHttpActionResult httpActionResult()
+        public IHttpActionResult food()
         {
-            var k = context.Foods.ToList();
-            return Ok(new { data = k, message = HttpStatusCode.OK });
+            var food = from a in context.Foods
+                       select new
+                       {
+                           a.ID,
+                           a.Name,
+                           a.Alias,
+                           a.OriginPrice,
+                           a.PromotionPrice,
+                           a.Status,
+                           a.CategoryID
+                       };
+            return Ok(new { data = food, message = HttpStatusCode.OK });
         }
-
+        [Route("api/user/cart")]
+        [HttpGet]
+        public IHttpActionResult cart(string id)
+        {
+            var food = from a in context.Foods
+                       join b in context.CartFoodDetails on a.ID equals b.FoodOptionID
+                       join c in context.Carts on b.CartID equals c.ID
+                       where c.CreatedByUserID == id
+                       select new
+                       {
+                           a.ID,
+                           a.Name,
+                           a.Alias,
+                           a.OriginPrice,
+                           a.PromotionPrice,
+                           b.Quantity
+                       };
+            return Ok(new { data = food, message = HttpStatusCode.OK });
+        }
         [Route("api/user/food")]
         [HttpGet]
         public IHttpActionResult GetByID(int id)
@@ -50,6 +80,7 @@ namespace LTTHver2._2.Area.Main
                        };
             return Ok(new { data = food, message = HttpStatusCode.OK });
         }
+        
 
 
     }

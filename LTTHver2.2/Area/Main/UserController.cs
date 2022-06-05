@@ -9,7 +9,7 @@ using System.Web.Http;
 
 namespace LTTHver2._2.Area.Main
 {
-    [Authorize]
+    
     public class UserController : ApiController
     {
         public LTTH context = new LTTH();
@@ -33,6 +33,25 @@ namespace LTTHver2._2.Area.Main
                            a.Password
                         
                            
+                       };
+            return Ok(new { data = user, message = HttpStatusCode.OK });
+        }
+        [Route("api/user")]
+        [HttpGet]
+        public IHttpActionResult getID(string email)
+        {
+            var user = from a in context.Users
+                       where a.Email == email
+                       select new
+                       {
+                           a.Id,
+                           a.FullName,
+                           a.Image,
+                           a.PhoneNumber,
+                           a.UserName,
+                           a.Password
+
+
                        };
             return Ok(new { data = user, message = HttpStatusCode.OK });
         }

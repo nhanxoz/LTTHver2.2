@@ -243,6 +243,14 @@
     <Compile Include="Migrations\202205150253173_a.Designer.cs">
       <DependentUpon>202205150253173_a.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202206040253009_new46.cs" />
+    <Compile Include="Migrations\202206040253009_new46.Designer.cs">
+      <DependentUpon>202206040253009_new46.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202206040304106_new47.cs" />
+    <Compile Include="Migrations\202206040304106_new47.Designer.cs">
+      <DependentUpon>202206040304106_new47.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\EF\Blog.cs" />
@@ -474,6 +482,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202205150253173_a.resx">
       <DependentUpon>202205150253173_a.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206040253009_new46.resx">
+      <DependentUpon>202206040253009_new46.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206040304106_new47.resx">
+      <DependentUpon>202206040304106_new47.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
