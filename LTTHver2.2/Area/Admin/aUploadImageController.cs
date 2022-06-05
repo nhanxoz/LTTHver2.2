@@ -16,7 +16,7 @@ namespace LTTHver2._2.Area.Admin
         public HttpResponseMessage UploadFiles()
         {
             //Create the Directory.
-            string path = HttpContext.Current.Server.MapPath("~/Uploads/");
+            string path = HttpContext.Current.Server.MapPath("~/Content/food/");
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
@@ -26,20 +26,21 @@ namespace LTTHver2._2.Area.Admin
             HttpPostedFile postedFile = HttpContext.Current.Request.Files[0];
 
             //Fetch the File Name.
-            string fileName = Path.GetFileName(postedFile.FileName);
+            //string fileName = Path.GetFileName(postedFile.FileName);
+            string fileName_ = HttpContext.Current.Request.Form["filename"];
 
             //Save the File.
-            postedFile.SaveAs(path + fileName);
+            postedFile.SaveAs(path + fileName_);
 
             //Send OK Response to Client.
-            return Request.CreateResponse(HttpStatusCode.OK, fileName);
+            return Request.CreateResponse(HttpStatusCode.OK, fileName_);
         }
 
         [HttpPost]
         [Route("api/ImageAPI/GetFiles")]
         public HttpResponseMessage GetFiles()
         {
-            string path = HttpContext.Current.Server.MapPath("~/Uploads/");
+            string path = HttpContext.Current.Server.MapPath("~/Content/food");
 
             //Fetch the Image Files.
             List<string> images = new List<string>();

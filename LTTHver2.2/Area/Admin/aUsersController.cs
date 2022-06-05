@@ -94,5 +94,21 @@ namespace LTTHver2._2.Area.Admin
                 return BadRequest(ex.Message);
             }
         }
+        //[Route("api/admin/editRole")]
+        //[HttpPost]
+        //public IHttpActionResult EditRole(int ID, int Role)
+        //{
+        //    try
+        //    {
+        //        var rm = context.;
+        //        context.Users.Remove(rm);
+        //        context.SaveChanges();
+        //        return Ok(new { data = "Thành công", message = HttpStatusCode.OK });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex.Message);
+        //    }
+        //}
     }
 }
