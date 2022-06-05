@@ -59,7 +59,7 @@ namespace LTTHver2._2.Area.Main
 
                 var rm = context.Users.Where(x => x.Id == id).FirstOrDefault();
                 string name = rm.FullName;
-                var newcomment = new FoodComment() { CreatedBy = name, CreatedDate = DateTime.Now, Content = content , FoodID = int.Parse(idfood), Status=0};
+                var newcomment = new FoodComment() { CreatedBy = name, CreatedDate = DateTime.Now, Content = content , FoodID = int.Parse(idfood), Status=1};
                 
                 
                     context.FoodComments.Add(newcomment);

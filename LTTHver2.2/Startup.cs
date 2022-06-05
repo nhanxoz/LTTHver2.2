@@ -9,7 +9,7 @@ namespace LTTHver2._2
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
-            
+            app.MapSignalR();
 
         }
     }

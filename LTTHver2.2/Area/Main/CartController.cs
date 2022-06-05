@@ -153,7 +153,7 @@ namespace LTTHver2._2.Area.Main
                 string name = HttpContext.Current.Request.Form["name"];
                 string address = HttpContext.Current.Request.Form["address"];
                 var rm = context.Carts.Where(x => x.CreatedByUserID == id).FirstOrDefault();
-                var nOrder = new Order() { IDUser = id, CustomerName = name, CustomerAddress = address };
+                var nOrder = new Order() { CreatedByUserID = id, CustomerName = name, CustomerAddress = address , Status = 0};
 
                 context.Orders.Add(nOrder);
                 context.SaveChanges();

@@ -8,7 +8,7 @@ using System.Web.Http;
 
 namespace LTTHver2._2.Area.Main
 {
-    [Authorize]
+   
     public class OrderController : ApiController
     {
         public LTTH context = new LTTH();
@@ -20,25 +20,17 @@ namespace LTTHver2._2.Area.Main
         [HttpGet]
         public IHttpActionResult GetAllByUser(string id)
         {
-            var order = from a in context.OrderFoodDetails
-                        from b in context.Orders
-                        from c in context.FoodOptions
-                        from d in context.Foods
-                        where b.ID == a.OrderID && a.FoodOptionID == c.ID &&
-                        c.ID == d.ID && b.IDUser == id
+            var order = from a in context.Orders
+                        where a.CreatedByUserID == id
                         select new
                         {
-                            a.OrderID,
-                            b.CreatedByUserID,
-                            b.CustomerName,
-                            b.CustomerAddress,
-                            d.ID,
-                            d.Name,
-                            d.Image,
-                            d.OriginPrice,
-                            d.PromotionPrice,
-                            a.Quantity,
-                            b.PaymentMethod
+                            a.ID,
+                            a.Status,
+                            a.ToTalPrice,
+                            Listmon = (from b in context.OrderFoodDetails
+                                       from c in context.Foods 
+                                       where b.FoodOptionID == c.ID && b.OrderID == a.ID
+                                       select c.Name)
                         };
 
             return Ok(new { data = order, message = HttpStatusCode.OK });
@@ -129,6 +121,44 @@ namespace LTTHver2._2.Area.Main
                     };
             _lsorder.Add((OrderDetail) k);
             return Ok(new { data1 = order,data2 = _lsorder, message = HttpStatusCode.OK });
+        }
+        [Route("api/user/order")]
+        [HttpGet]
+        public IHttpActionResult order(string id)
+        {
+            var food = from a in context.Foods
+                       join b in context.OrderFoodDetails on a.ID equals b.FoodOptionID
+                       join c in context.Orders on b.OrderID equals c.ID
+                       where c.CreatedByUserID == id
+                       select new
+                       {
+                           a.ID,
+                           a.Name,
+                           a.Alias,
+                           a.OriginPrice,
+                           a.PromotionPrice,
+                           b.Quantity
+                       };
+            return Ok(new { data = food, message = HttpStatusCode.OK });
+        }
+        [Route("api/user/orderDetail")]
+        [HttpGet]
+        public IHttpActionResult orderDetail(int id)
+        {
+            var food = from a in context.Foods
+                       join b in context.OrderFoodDetails on a.ID equals b.FoodOptionID
+                       join c in context.Orders on b.OrderID equals c.ID
+                       where c.ID == id
+                       select new
+                       {
+                           a.ID,
+                           a.Name,
+                           a.Alias,
+                           a.OriginPrice,
+                           a.PromotionPrice,
+                           b.Quantity
+                       };
+            return Ok(new { data = food, message = HttpStatusCode.OK });
         }
     }
 }

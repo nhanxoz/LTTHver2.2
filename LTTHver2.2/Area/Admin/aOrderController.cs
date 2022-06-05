@@ -123,5 +123,6 @@ namespace LTTHver2._2.Area.Admin
                 return BadRequest(ex.Message);
             }
         }
+
     }
 }

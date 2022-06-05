@@ -56,17 +56,40 @@ namespace LTTHver2._2.Area.Main
             return Ok(new { data = user, message = HttpStatusCode.OK });
         }
         [Route("api/user")]
-        [HttpGet]
+        [HttpPost]
         public IHttpActionResult GetUser(User user)
         {
             try
             {
 
                 User _user = context.Users.Find(user.Id);
-                _user = user;
+                
+                
+
+                return Ok(new { data = _user, message = HttpStatusCode.OK });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+        [Route("api/userChangeInfor")]
+        [HttpPost]
+        public IHttpActionResult ChangeUserInfor(User user)
+        {
+            try
+            {
+
+                User _user = context.Users.Find(user.Id);
+
+                _user.Address = user.Address;
+                _user.Email = user.Email;
+                _user.FullName = user.FullName;
+
                 context.SaveChanges();
 
-                return Ok(new { data = user, message = HttpStatusCode.OK });
+                return Ok(new { data = "Thành công", message = HttpStatusCode.OK });
             }
             catch (Exception ex)
             {
