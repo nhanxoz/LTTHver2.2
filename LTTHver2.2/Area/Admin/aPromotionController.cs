@@ -44,12 +44,19 @@ namespace LTTHver2._2.Area.Admin
             }
 
         }
-        [Route("api/admin/promotion")]
+        [Route("api/admin/delete")]
         [HttpDelete]
         public IHttpActionResult DeletePromotion(int id)
         {
             try
             {
+                var x = context.PromotionFoodDetails.Where(k => k.PromotionID == id).FirstOrDefault();
+                if(x!=null)
+                {
+                    context.PromotionFoodDetails.Remove(x);
+                }
+                
+                
                 var rm = context.Promotions.Find(id);
                 context.Promotions.Remove(rm);
                 context.SaveChanges();

@@ -28,11 +28,11 @@ namespace LTTHver2._2.Area.Admin
                         c.ID == d.ID 
                         select new
                         {
-                            a.OrderID,
+                            b.ID,
                             b.CreatedByUserID,
                             b.CustomerName,
                             b.CustomerAddress,
-                            d.ID,
+                            a.FoodOptionID,
                             d.Name,
                             d.Image,
                             d.OriginPrice,
@@ -82,12 +82,13 @@ namespace LTTHver2._2.Area.Admin
                 return BadRequest(ex.Message);
             }
         }
-        [Route("api/admin/order")]
-        [HttpPut]
+        [Route("api/admin/editorder")]
+        [HttpPost]
         public IHttpActionResult EditOrder(Order order)
         {
             try
             {
+                Console.Write(order);
                 Order ed = context.Orders.Find(order.ID);
                 ed.CustomerName = order.CustomerName;
                 ed.CustomerAddress = order.CustomerAddress;
@@ -107,14 +108,14 @@ namespace LTTHver2._2.Area.Admin
                 return BadRequest(ex.Message);
             }
         }
-        [Route("api/admin/order")]
+        [Route("api/admin/editstatus")]
         [HttpPut]
-        public IHttpActionResult EditOrderStatus(int id)
+        public IHttpActionResult EditOrderStatus(int ID, int stt)
         {
             try
             {
-                Order ed = context.Orders.Find(id);
-                if (ed.Status != null && ed.Status < 6) ed.Status = ed.Status + 1; else if (ed.Status == null) ed.Status = 1;
+                Order ed = context.Orders.Find(ID);
+                if (ed.Status != null) ed.Status = stt;
                 context.SaveChanges();
                 return Ok(new { data = "Thành công", message = HttpStatusCode.OK });
             }

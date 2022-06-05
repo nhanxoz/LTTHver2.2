@@ -88,10 +88,10 @@ namespace LTTHver2._2.Area.Main
         }
         [Route("api/user/orderID")]
         [HttpGet]
-        public IHttpActionResult GetOrderByID(int OrderID)
+        public IHttpActionResult GetOrderByID(int orderID)
         {
             var order = from a in context.Orders
-                        where a.ID == OrderID
+                        where a.ID == orderID
                         select new
                         {
                             a.ID,
@@ -107,7 +107,7 @@ namespace LTTHver2._2.Area.Main
             var k = from a in context.OrderFoodDetails
                     from b in context.FoodOptions
                     from c in context.Foods
-                    where a.OrderID == OrderID && a.FoodOptionID == b.ID && b.FoodID == c.ID
+                    where a.OrderID == orderID && a.FoodOptionID == b.ID && b.FoodID == c.ID
                     select new
                     {
                         c.Name,
